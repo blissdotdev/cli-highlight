@@ -63,7 +63,9 @@ if (!file && !(process.stdin as tty.ReadStream).isTTY) {
     process.exit(1)
 }
 
-Promise.all<string, string | undefined>([codePromise, argv.theme ? fs.readFile(argv.theme, 'utf8') : undefined])
+type theme = string | undefined
+
+Promise.all<theme>([codePromise, argv.theme ? fs.readFile(argv.theme, 'utf8') : undefined])
     .then(([code, theme]) => {
         const options: HighlightOptions = {
             ignoreIllegals: true,
@@ -77,7 +79,7 @@ Promise.all<string, string | undefined>([codePromise, argv.theme ? fs.readFile(a
         }
         options.language = argv.language
         return new Promise<void>((resolve, reject) =>
-            process.stdout.write(highlight(code, options), (error: any) => (error ? reject(error) : resolve()))
+            process.stdout.write(highlight(code || '', options), (error: any) => (error ? reject(error) : resolve()))
         )
     })
     .then(() => {
