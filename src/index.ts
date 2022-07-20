@@ -1,4 +1,4 @@
-import * as hljs from 'highlight.js'
+import hljs from 'highlight.js'
 import * as parse5 from 'parse5'
 import htmlparser2Adapter from 'parse5-htmlparser2-tree-adapter'
 // eslint-disable-next-line no-duplicate-imports
@@ -102,6 +102,7 @@ export function listLanguages(): string[] {
 
 /**
  * Returns true if the language is supported
+ *
  * @param name A language name, alias or file extension
  */
 export function supportsLanguage(name: string): boolean {
